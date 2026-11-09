@@ -134,9 +134,9 @@ static int insertCity(Graph *graph, const char *name){
     }
     if ((table->size + 1) * 4 > table->capacity * 3) {//making sure load factor is less than 0.75
     if (!resizeHash(table)) {
-        return -1;
+            return -1;
+        }
     }
-}
     int bucket= HashCity(name,(table->capacity));
     CityEntryPT entry= malloc(sizeof(CityEntry));//allocate space for new entry
     if (entry==NULL){
