@@ -6,9 +6,10 @@ struct Edge {
     int distance;
     EdgePT next;
 };
-typedef Graph {
+typedef struct Graph {
     EdgePT *adjList;
     int numVertices;
     int capacity;
-}
+} Graph;
+
 
