@@ -1,7 +1,7 @@
 #include "graph.h"
 #include <stdlib.h>
 static bool initHashTable(HashTable* table);
-static unsigned int hashCity(const char *name, int capacity);//use unsigned int for hash and const 
+static unsigned int HashCity(const char *name, int capacity);//use unsigned int for hash and const 
                                                             //to ensure no changes 
 bool initGraph(Graph *graph){
 
@@ -40,7 +40,7 @@ static bool initHashTable(HashTable* table){
     table->entries= calloc(table->capacity,sizeof(CityEntryPT));
     return table->entries!=NULL;
 }
-static unsigned int hashCity(const char *name, int capacity){
+static unsigned int HashCity(const char *name, int capacity){
     unsigned int hash=0;
     for(int i=0; name[i]!='\0';i++){//casting name[i] as unsigned char to prevent negatives
         hash=( hash * 31 + (unsigned char)name[i])% capacity;//31 is a prime number good to use in this case
