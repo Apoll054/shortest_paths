@@ -1,8 +1,13 @@
 #include "graph.h"
 #include <stdlib.h>
+#include <string.h>
 static bool initHashTable(HashTable* table);
 static unsigned int HashCity(const char *name, int capacity);//use unsigned int for hash and const 
-                                                            //to ensure no changes 
+                                                            //to ensure no changes
+static int findCityID(HashTable *table, const char* name);
+                                                            
+                            
+
 bool initGraph(Graph *graph){
 
     if(graph==NULL) return false;
@@ -46,4 +51,16 @@ static unsigned int HashCity(const char *name, int capacity){
         hash=( hash * 31 + (unsigned char)name[i])% capacity;//31 is a prime number good to use in this case
     }
     return hash;
+}
+static int findCityID(HashTable *table, const char* name){//if city present, returns ID otherwise -1
+    unsigned int index= HashCity(name, table->capacity);
+    CityEntryPT currCity = table->entries[index];
+    while(currCity!=NULL){
+        if (strcmp(name,currCity->cityName)==0){
+            return currCity->ID;
+        }
+        currCity=currCity->next;
+
+    }
+    return -1;
 }
