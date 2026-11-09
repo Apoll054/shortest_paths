@@ -2,7 +2,7 @@
 #define GRAPH_H
 #include <stdbool.h>
 typedef struct Edge Edge;
-typedef Edge* EdgePT; //points to an Edge, represents start of a Linked list involving the edges from a node
+typedef Edge* EdgePT; //points to an Edge, can represents start of a Linked list of edges or any individual node
 
 struct Edge {
     int destination_ID;
@@ -11,15 +11,15 @@ struct Edge {
 };
 
 typedef struct CityEntry CityEntry;
-typedef struct CityEntry* CityEntryPT;// points to an entry, represents start of a Linked list in the hash table
+typedef struct CityEntry* CityEntryPT;// points to an entry, can represent entries in the hash table
 
-struct CityEntry{ // individual entry from the input file for the roads (edges)
+struct CityEntry{ // maps a city name to it's ID
     int ID;
     char* cityName;
     CityEntryPT next;
 };
 
-typedef struct HashTable{//hash table with linked chaining
+typedef struct HashTable{//hash table with separate chaining
     CityEntryPT* entries;
     int capacity;
     int size;
