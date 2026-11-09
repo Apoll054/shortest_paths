@@ -1,11 +1,13 @@
 #include "graph.h"
 #include <stdlib.h>
 #include <string.h>
+bool initGraph(Graph *graph);
 static bool initHashTable(HashTable* table);
 static unsigned int HashCity(const char *name, int capacity);//use unsigned int for hash and const 
                                                             //to ensure no changes
 static int findCityID(HashTable *table, const char* name);
-                                                            
+static int insertCity(Graph *graph, const char *name);  
+static bool resizeGraph(Graph *graph);                                            
                             
 
 bool initGraph(Graph *graph){
@@ -63,4 +65,49 @@ static int findCityID(HashTable *table, const char* name){//if city present, ret
 
     }
     return -1;
+}
+
+static int insertCity(Graph *graph, const char *name){
+    HashTable * table= &(graph->cityTable);
+    int ID= findCityID(table,name);
+
+    if(ID!=-1){//if city already exists return the ID
+        return ID;  
+    }
+    if(graph->numVertices >= graph->capacity){//if no of vertices exceeds capacity resize
+        if(!resizeGraph(graph)){//if fail to resize then return
+            return -1;
+        }
+    }
+    int bucket= HashCity(name,(table->capacity));
+    CityEntryPT entry= malloc(sizeof(CityEntry));//allocate space for new entry
+    if (entry==NULL){
+        return -1;
+    }
+    char *newName = malloc(strlen(name) + 1);//allocate space for name in city entry
+
+    if (newName == NULL) {//free entry and return -1 if allocation fails
+        free(entry);
+        return -1;
+    }
+
+    strcpy(newName, name);//copy name into newName
+
+    entry->cityName = newName;//asign cityName pointer to point to newName
+
+    entry->ID=graph->numVertices;//the id will be ordered in the order it was added in
+    graph->cityNames[entry->ID]=newName;//add name to city names
+
+
+    entry->next = table->entries[bucket];//insert entry in the beginning of the linked list
+    table->entries[bucket] = entry;
+
+    graph->numVertices++;//increase vertices and table size
+    table->size++;
+
+    return entry->ID;
+
+
+
+
 }
