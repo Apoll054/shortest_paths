@@ -7,7 +7,8 @@ static unsigned int HashCity(const char *name, int capacity);//use unsigned int 
                                                             //to ensure no changes
 static int findCityID(HashTable *table, const char* name);
 static int insertCity(Graph *graph, const char *name);  
-static bool resizeGraph(Graph *graph);                                            
+static bool resizeGraph(Graph *graph); 
+static bool resizeHash(HashTable* table);                                    
                             
 
 bool initGraph(Graph *graph){
@@ -65,6 +66,33 @@ static int findCityID(HashTable *table, const char* name){//if city present, ret
 
     }
     return -1;
+}
+static bool resizeHash(HashTable* table){
+    int oldCapacity=(table->capacity);
+    int newCapacity= (table->capacity)*2;
+    CityEntryPT* newEntries = calloc(newCapacity, sizeof(CityEntryPT));
+
+    if (newEntries == NULL) {
+        return false;
+    }
+    for (int i=0; i<oldCapacity;i++){
+        CityEntryPT curr=table->entries[i];
+        while(curr!=NULL){
+
+            CityEntryPT next=curr->next; //save next city
+            int index = HashCity(curr->cityName,newCapacity);
+
+            curr->next = newEntries[index]; // link to new bucket
+            newEntries[index]=curr; //update bucket
+
+            curr= next; // continue
+
+        }
+    }
+    free(table->entries);
+    table->entries=newEntries;
+    table->capacity=newCapacity;
+    return true;
 }
 
 static bool resizeGraph(Graph *graph){
