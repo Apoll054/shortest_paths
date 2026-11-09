@@ -67,6 +67,31 @@ static int findCityID(HashTable *table, const char* name){//if city present, ret
     return -1;
 }
 
+static bool resizeGraph(Graph *graph){
+    int oldCapacity = graph->capacity;
+    int newCapacity = oldCapacity * 2;
+
+    EdgePT *temp= realloc(graph->adjList,newCapacity*sizeof(EdgePT));
+    if (temp==NULL){
+        return false;
+    }
+    graph->adjList=temp;
+    char **temp1= realloc(graph->cityNames,newCapacity*sizeof(char*));
+    if(temp1==NULL){
+        return false;
+    }
+    graph->cityNames=temp1;
+
+    for (int i = oldCapacity; i < newCapacity; i++) {//making newly allocated spaces NULL
+        graph->adjList[i] = NULL;
+        graph->cityNames[i] = NULL;
+    }
+
+    graph->capacity = newCapacity;
+    return true;
+
+}
+
 static int insertCity(Graph *graph, const char *name){
     HashTable * table= &(graph->cityTable);
     int ID= findCityID(table,name);
