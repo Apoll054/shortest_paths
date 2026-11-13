@@ -9,7 +9,8 @@ static int findCityID(HashTable *table, const char* name);
 static int insertCity(Graph *graph, const char *name);  
 static bool resizeGraph(Graph *graph); 
 static bool resizeHash(HashTable* table); 
-static bool insertEdge(Graph *graph,int fromID, int toID, int distance);                                   
+static bool insertEdge(Graph *graph,int fromID, int toID, int distance);          
+bool addRoad(Graph *graph,const char *from, const char *to, int distance);                         
                             
 
 bool initGraph(Graph *graph){//initializes a graph
@@ -201,4 +202,22 @@ static bool insertEdge(Graph *graph, int fromID, int toID, int distance)
 
 
     return true;
+}
+bool addRoad(Graph *graph,const char *from, const char *to, int distance){
+    if (graph == NULL || from == NULL || to == NULL || distance < 0) {
+    return false;//check if anything null
+}
+
+    int fromID=insertCity(graph,from);
+    if(fromID==-1){
+        return false;
+    }
+    int toID=insertCity(graph,to);
+    if(toID==-1){
+        return false;
+    }
+
+    return insertEdge(graph,fromID,toID,distance);
+
+
 }
