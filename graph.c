@@ -8,18 +8,19 @@ static unsigned int HashCity(const char *name, int capacity);//use unsigned int 
 static int findCityID(HashTable *table, const char* name);
 static int insertCity(Graph *graph, const char *name);  
 static bool resizeGraph(Graph *graph); 
-static bool resizeHash(HashTable* table);                                    
+static bool resizeHash(HashTable* table); 
+static bool insertEdge(Graph *graph,int fromID, int toID, int distance);                                   
                             
 
-bool initGraph(Graph *graph){
+bool initGraph(Graph *graph){//initializes a graph
 
     if(graph==NULL) return false;
 
     graph->capacity=10;
     graph->numVertices=0;
     graph->cityTable = (HashTable){0};//initialization to 0 ensures predictable initial state
-    graph->adjList = calloc(graph->capacity,sizeof(EdgePT));
-    graph->cityNames=calloc(graph->capacity,sizeof(char*));
+    graph->adjList = calloc(graph->capacity,sizeof(EdgePT));//allocate pointer for the adjlist nodes
+    graph->cityNames=calloc(graph->capacity,sizeof(char*));//array for strings with all the names 
 
 
     if (graph->adjList == NULL || 
@@ -168,4 +169,36 @@ static int insertCity(Graph *graph, const char *name){
 
 
 
+}
+
+static bool insertEdge(Graph *graph, int fromID, int toID, int distance)
+{
+    if (graph == NULL) return false;
+    if (fromID < 0 || fromID >= graph->numVertices ||
+        toID < 0 || toID >= graph->numVertices ||
+        distance < 0) {
+        return false;
+    }
+    EdgePT forwardEdge=malloc(sizeof(Edge));//bidirectional roads
+    EdgePT reverseEdge=malloc(sizeof(Edge));
+    if(forwardEdge==NULL ||reverseEdge==NULL){
+        free(forwardEdge);//freeing in case any one of them fails
+        free(reverseEdge);
+        return false;
+    }
+
+    forwardEdge->destination_ID=toID;//initializing first edge
+    forwardEdge->distance=distance;
+    forwardEdge->next=graph->adjList[fromID];
+    graph->adjList[fromID] = forwardEdge;//link node
+
+
+    reverseEdge->destination_ID=fromID;//init and load reverse edge
+    reverseEdge->distance=distance;
+    reverseEdge->next=graph->adjList[toID];
+    graph->adjList[toID] = reverseEdge; 
+
+
+
+    return true;
 }
