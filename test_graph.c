@@ -13,18 +13,6 @@ int main(void) {
     // Add two roads
     addRoad(&graph, "Houston", "Austin", 150);
     addRoad(&graph, "Austin", "Dallas", 200);
-    for (int i = 0; i < 10; i++) {
-        char name[30];
-        snprintf(name, sizeof(name), "City%d", i);
-        addRoad(&graph, "Houston", name, 100);
-    }
-    int before = graph.numVertices;
-
-    addRoad(&graph, "Houston", "City3", 75);
-
-    printf("Before: %d\n", before);
-    printf("After: %d\n", graph.numVertices);
-    printf("Hash entries: %d\n", graph.cityTable.size);
 
     printf("Number of cities: %d\n", graph.numVertices);
     printf("Graph capacity: %d\n", graph.capacity);
