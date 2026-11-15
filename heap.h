@@ -1,6 +1,6 @@
 #ifndef HEAP_H
 #define HEAP_H
-#include<stdio.h>
+#include<stdbool.h>
 
 typedef struct HeapNode{
     int cityID;
@@ -8,7 +8,7 @@ typedef struct HeapNode{
 } HeapNode;
 
 typedef struct MinHeap{
-    HeapNode data;
+    HeapNode* data;
     int size;
     int capacity;
 } MinHeap;
