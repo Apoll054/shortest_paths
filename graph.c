@@ -248,7 +248,7 @@ void freeGraph(Graph *graph) {
         }
     }
     free(graph->cityTable.entries);
-    free(graph);
+    *graph=(Graph){0};
     
 
     
