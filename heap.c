@@ -47,7 +47,10 @@ static void bubbleDown(MinHeap *heap, int i) {//helper bubble down
 }
 
 bool initHeap(MinHeap *heap) {
-    if (heap == NULL) return false;
+    if (heap == NULL){ 
+        heap->capacity=0;
+        return false;}
+
 
     heap->size = 0;
     heap->capacity = 10;
