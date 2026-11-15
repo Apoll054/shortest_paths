@@ -13,8 +13,15 @@ int main(void) {
     // Add two roads
     addRoad(&graph, "Houston", "Austin", 150);
     addRoad(&graph, "Austin", "Dallas", 200);
+    for (int i = 0; i < 10; i++) {
+        char name[30];
+        sprintf(name, "City%d", i);
+        addRoad(&graph, "Houston", name, 100);
+    }
 
     printf("Number of cities: %d\n", graph.numVertices);
+    printf("Graph capacity: %d\n", graph.capacity);
+    printf("Hash capacity: %d\n", graph.cityTable.capacity);
 
     // Print every city's adjacency list
     for (int i = 0; i < graph.numVertices; i++) {
@@ -32,6 +39,7 @@ int main(void) {
 
         printf("NULL\n");
     }
+    
 
     freeGraph(&graph);
     return 0;
