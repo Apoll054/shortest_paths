@@ -38,4 +38,7 @@ typedef struct Graph {//graph structure encapsulates all the structures here, ea
 
 
 bool initGraph(Graph *graph);
+bool initGraph(Graph *graph);
+bool addRoad(Graph *graph, const char *from, const char *to, int distance);
+void freeGraph(Graph *graph);
 #endif
