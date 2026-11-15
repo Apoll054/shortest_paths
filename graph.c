@@ -211,19 +211,47 @@ bool addRoad(Graph *graph,const char *from, const char *to, int distance){
 
     int fromID=insertCity(graph,from);
     if(fromID==-1){
-        return false;
+        return false;//return false if failed insertion
     }
     int toID=insertCity(graph,to);
     if(toID==-1){
         return false;
     }
 
-    return insertEdge(graph,fromID,toID,distance);
+    return insertEdge(graph,fromID,toID,distance);//inset edge
 
 
 }
 
 void freeGraph(Graph *graph) {
     if (graph == NULL) return;
+    for(int i=0;i<graph->numVertices;i++){
+        EdgePT curr= graph->adjList[i];
+        while(curr!=NULL){
+            EdgePT temp=curr;
+            curr=curr->next;
+            free(temp);
+        }
+    }
+    free(graph->adjList);
+    for(int i=0;i<graph->numVertices;i++){
+        free(graph->cityNames[i]);
+    }
+    free(graph->cityNames);
+
+    for(int i=0;i<graph->cityTable.capacity;i++){
+        CityEntryPT curr=graph->cityTable.entries[i];
+        while(curr!=NULL){
+            CityEntryPT temp =curr;
+            curr=curr->next;
+            free(temp);
+        }
+    }
+    free(graph->cityTable.entries);
+    free(graph);
+    
+
+    
+
 
 }
