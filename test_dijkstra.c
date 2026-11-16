@@ -21,7 +21,7 @@ int main() {
 
     // Houston is city ID 0
     if (!dijkstra(&graph, 0, dist, prev)) {
-        printf("Dijkstra failed\n");
+        printf("Failed\n");
         freeGraph(&graph);
         return 1;
     }
