@@ -1,0 +1,10 @@
+Kathmandu Pokhara 240
+Kathmandu Bharatpur 160
+Bharatpur Pokhara 130
+Bharatpur Hetauda 70
+Hetauda Birgunj 60
+Bharatpur Butwal 120
+Pokhara Butwal 180
+Butwal Birgunj 230
+Kathmandu Birgunj 300
+END OF INPUT

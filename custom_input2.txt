@@ -1,0 +1,10 @@
+Kathmandu Dhulikhel 30
+Dhulikhel Sindhuli 85
+Sindhuli Janakpur 115
+Janakpur Biratnagar 175
+Kathmandu Sindhuli 155
+Dhulikhel Janakpur 245
+Pokhara Baglung 75
+Baglung Beni 35
+Pokhara Beni 130
+END OF INPUT
