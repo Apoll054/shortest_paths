@@ -25,7 +25,7 @@ no route exists, it prints "distance: infinity" and "route: none".
   shortest known distances and prev[] stores the predecessor for each city.
 - input1.txt: Sample input used for testing.
 - custom_input1.txt / custom_input2.txt: Two original test inputs.
-- custom_input1_graph.png / custom_input2_graph.png: Drawings corresponding
+- custom_input1.png / custom_input2.png: Drawings corresponding
   to the two original inputs.
 
 3. Compilation and Running
