@@ -115,7 +115,7 @@ int main() {
 }
 
 static void printRoads(Graph *graph, int startID, int destID,int dist[], int prev[]){
-    if(startID=destID){
+    if(startID==destID){
         return;
     }
     int previous=prev[destID];
