@@ -8,7 +8,9 @@
 
 static void printRoads(Graph *graph, int startID, int destID, int dist[], int prev[]);
 
-int main() {
+int main(int argc, char *argv[]) {
+    bool debug = (argc > 1 && strcmp(argv[1], "--debug") == 0);
+
     char filename[256];
     char origin[100];
     char destination[100];
@@ -89,6 +91,32 @@ int main() {
         free(prev);
         freeGraph(&graph);
         return 1;
+    }
+
+    if (debug) {//debug info
+        printf("\nCity IDs:\n");
+
+        for (int i = 0; i < numVertices; i++) {
+            printf("%d - %s\n", i, graph.cityNames[i]);
+        }
+
+        printf("\nDistances:\n");
+
+        for (int i = 0; i < numVertices; i++) {
+            if (dist[i] == INT_MAX) {
+                printf("%d: infinity\n", i);
+            } else {
+                printf("%d: %d\n", i, dist[i]);
+            }
+        }
+
+        printf("\nPredecessors:\n");
+
+        for (int i = 0; i < numVertices; i++) {
+            printf("%d: %d\n", i, prev[i]);
+        }
+
+        printf("\n");
     }
 
     if (dist[destID] == INT_MAX) {
