@@ -11,7 +11,8 @@ static bool resizeGraph(Graph *graph);
 static bool resizeHash(HashTable* table); 
 static bool insertEdge(Graph *graph,int fromID, int toID, int distance);          
 bool addRoad(Graph *graph,const char *from, const char *to, int distance);                  
-void freeGraph(Graph *graph);       
+void freeGraph(Graph *graph); 
+int getCityID(Graph *graph, const char *cityName);      
                             
 
 bool initGraph(Graph *graph){//initializes a graph
@@ -254,4 +255,11 @@ void freeGraph(Graph *graph) {
     
 
 
+}
+int getCityID(Graph *graph, const char *cityName) {
+    if (graph == NULL || cityName == NULL) {
+        return -1;
+    }
+
+    return findCityID(&graph->cityTable, cityName);
 }
